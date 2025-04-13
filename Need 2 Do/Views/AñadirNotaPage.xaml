@@ -1,0 +1,47 @@
+<ContentPage
+    x:Class="Need_2_Do.Views.AñadirNotaPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Nueva Nota"
+    BackgroundColor="#F0F0F0">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label
+                FontSize="16"
+                Text="Título"
+                TextColor="#333" />
+            <Entry
+                x:Name="tituloEntry"
+                Margin="0,0,0,10"
+                BackgroundColor="White"
+                FontSize="18"
+                HeightRequest="40"
+                Placeholder="Título de la nota"
+                TextColor="Black" />
+
+            <Label
+                FontSize="16"
+                Text="Contenido"
+                TextColor="#333" />
+            <Editor
+                x:Name="contenidoEditor"
+                AutoSize="TextChanges"
+                BackgroundColor="White"
+                FontSize="16"
+                HeightRequest="200"
+                Placeholder="Escribe tu nota aquí..."
+                TextColor="Black" />
+
+            <Button
+                BackgroundColor="#3B82F6"
+                Clicked="OnGuardarClicked"
+                CornerRadius="10"
+                FontSize="18"
+                HeightRequest="50"
+                Text="Guardar"
+                TextColor="White" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

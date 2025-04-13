@@ -1,0 +1,45 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Need_2_Do.Views.BorrarNotaPage"
+             Title="Eliminar Nota"
+             BackgroundColor="#F0F0F0">
+
+    <VerticalStackLayout Padding="20" Spacing="15">
+        <Label Text="¿Estás seguro de que deseas eliminar esta nota?"
+               FontSize="18"
+               FontAttributes="Bold"
+               TextColor="Red"
+               HorizontalOptions="Center" />
+
+        <Frame BackgroundColor="White"
+               Padding="15"
+               CornerRadius="10">
+            <VerticalStackLayout>
+                <Label x:Name="tituloLabel"
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       TextColor="Black" />
+                <Label x:Name="contenidoLabel"
+                       FontSize="16"
+                       TextColor="Gray"
+                       LineBreakMode="WordWrap" />
+            </VerticalStackLayout>
+        </Frame>
+
+        <HorizontalStackLayout Spacing="10">
+            <Button Text="Cancelar"
+                    Clicked="OnCancelarClicked"
+                    BackgroundColor="Gray"
+                    TextColor="White"
+                    CornerRadius="10"
+                    HorizontalOptions="FillAndExpand" />
+
+            <Button Text="Eliminar"
+                    Clicked="OnConfirmarBorradoClicked"
+                    BackgroundColor="#EF4444"
+                    TextColor="White"
+                    CornerRadius="10"
+                    HorizontalOptions="FillAndExpand" />
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>
