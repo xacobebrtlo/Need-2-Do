@@ -1,0 +1,40 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Need_2_Do.Views.EditarNotaPage"
+             Title="Nota"
+             BackgroundColor="#F0F0F0">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Entry x:Name="tituloEntry"
+                   Placeholder="Título de la nota"
+                   FontSize="20"
+                   BackgroundColor="White"
+                   TextColor="Black" />
+
+            <Editor x:Name="contenidoEditor"
+                    Placeholder="Contenido"
+                    FontSize="16"
+                    BackgroundColor="White"
+                    TextColor="Black"
+                    HeightRequest="200" />
+
+            <HorizontalStackLayout Spacing="10">
+                <Button Text="Guardar"
+                        Clicked="OnGuardarClicked"
+                        BackgroundColor="#3B82F6"
+                        TextColor="White"
+                        CornerRadius="8"
+                        HorizontalOptions="FillAndExpand" />
+
+                <Button Text="Eliminar"
+                        Clicked="OnEliminarClicked"
+                        BackgroundColor="#EF4444"
+                        TextColor="White"
+                        CornerRadius="8"
+                        HorizontalOptions="FillAndExpand" />
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
