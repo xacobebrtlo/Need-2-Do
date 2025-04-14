@@ -14,6 +14,7 @@
 - Añadido sistema modelo vista controlador para organizar el proyecto
 - Añadida pagina principal en la que muestra las notas con posibilidad de añadir, modificar y eliminar la tarea
 - Añadida ventana de modificar tareas y ventana de eliminar tareas
+- Añadida base de datos con sqlite
 
 &nbsp;
 --- 
