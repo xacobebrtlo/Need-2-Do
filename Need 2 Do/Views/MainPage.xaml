@@ -1,94 +1,73 @@
 ﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NotasApp.Views.MainPage"
-             Title="Mis Notas"
-             BackgroundColor="#F0F0F0">
+             Title="Tus Notas"
+             BackgroundColor="#F4F4F4">
 
     <Grid Padding="10">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-
-        <!-- Título superior -->
-        <Label Text="Notas"
-               FontSize="32"
-               FontAttributes="Bold"
-               TextColor="Black"
-               Margin="10,0"
-               Grid.Row="0"/>
-
         <!-- Lista de notas -->
         <CollectionView x:Name="NotasCollection"
-                SelectionMode="Single"
-                SelectionChanged="OnNotaSeleccionada">
+                        SelectionChanged="OnNotaSeleccionada"
+                        Margin="0,0,0,70">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Frame Margin="6"
-                   Padding="12"
-                   CornerRadius="16"
-                   HasShadow="True"
-                   BackgroundColor="White">
-                        <Grid ColumnSpacing="10">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
+                    <Frame Margin="0,10"
+                           Padding="12"
+                           CornerRadius="16"
+                           BackgroundColor="White"
+                           HasShadow="True">
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="{Binding Titulo}"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="#333" />
+                            <Label Text="{Binding Contenido}"
+                                   FontSize="14"
+                                   TextColor="#666"
+                                   LineBreakMode="TailTruncation"
+                                   MaxLines="3" />
+                            <Label 
+                                Text="{Binding FechaTarea, StringFormat='Fecha asignada: {0:dd MMM yyyy}'}" 
+                                IsVisible="{Binding FechaTarea.HasValue}" />
 
-                            <!-- Contenido de la nota -->
-                            <VerticalStackLayout Grid.Column="0">
-                                <Label Text="{Binding Titulo}"
-                               FontSize="18"
-                               FontAttributes="Bold"
-                               TextColor="Black" />
-                                <Label Text="{Binding FechaCreacion, StringFormat='{0:dd MMM yyyy HH:mm}'}"
-                               FontSize="12"
-                               TextColor="Gray" />
-                            </VerticalStackLayout>
-
-                            <!-- Botones -->
-                            <HorizontalStackLayout Grid.Column="1"
-                                           VerticalOptions="Center"
-                                           Spacing="6">
-                                <Button Text="✏"
-                                FontSize="14"
-                                HeightRequest="36"
-                                WidthRequest="36"
-                                CornerRadius="18"
-                                BackgroundColor="#3B82F6"
-                                TextColor="White"
-                                Clicked="OnEditarNotaDesdeLista"
-                                CommandParameter="{Binding .}" />
-
-                                <Button Text="🗑"
-                                FontSize="14"
-                                HeightRequest="36"
-                                WidthRequest="36"
-                                CornerRadius="18"
-                                BackgroundColor="#EF4444"
-                                TextColor="White"
-                                Clicked="OnBorrarNotaDesdeLista"
-                                CommandParameter="{Binding .}" />
+                            <HorizontalStackLayout Spacing="15" Margin="0,10,0,0">
+                                <Button Text="Editar"
+                                        FontSize="12"
+                                        BackgroundColor="#007AFF"
+                                        TextColor="White"
+                                        Padding="5"
+                                        Clicked="OnEditarNotaDesdeLista"
+                                        CommandParameter="{Binding .}" />
+                                <Button Text="Borrar"
+                                        FontSize="12"
+                                        BackgroundColor="#FF3B30"
+                                        TextColor="White"
+                                        Padding="5"
+                                        Clicked="OnBorrarNotadeLista"
+                                        CommandParameter="{Binding .}" />
                             </HorizontalStackLayout>
-                        </Grid>
+                        </VerticalStackLayout>
                     </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-
-        <!-- Botón flotante para nueva nota -->
-        <Button Text="+"
-                FontSize="24"
-                WidthRequest="60"
-                HeightRequest="60"
-                CornerRadius="30"
-                BackgroundColor="#3B82F6"
-                TextColor="White"
-                VerticalOptions="End"
-                HorizontalOptions="End"
-                Margin="10"
-                Clicked="OnNuevaNotaClicked"
-                Grid.Row="1" />
+        <!-- Botón flotante -->
+        <Grid VerticalOptions="End" HorizontalOptions="End" Padding="15">
+            <Frame BackgroundColor="#007AFF"
+                   CornerRadius="100"
+                   HeightRequest="60"
+                   WidthRequest="60"
+                   HasShadow="True"
+                   Padding="0">
+                <ImageButton Source="plus.png"
+                             Clicked="OnNuevaNotaClicked"
+                             BackgroundColor="Transparent"
+                             WidthRequest="60"
+                             HeightRequest="60"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center"/>
+            </Frame>
+        </Grid>
     </Grid>
 </ContentPage>

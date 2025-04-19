@@ -20,6 +20,30 @@
                 HeightRequest="40"
                 Placeholder="Título de la nota"
                 TextColor="Black" />
+            <Button
+                Margin="0,20,0,0"
+                Clicked="OnAsignarFechaClicked"
+                FontSize="16"
+                HorizontalOptions="Center"
+                Text="{Binding TextoBotonFecha}" />
+
+            <DatePicker
+                Margin="0,10"
+                Date="{Binding FechaTarea}"
+                Format="D"
+                HorizontalOptions="Center"
+                IsVisible="{Binding MostrarCalendario}" />
+
+            <!--  Mostrar fecha seleccionada  -->
+            <Label
+                Margin="0,5,0,0"
+                FontSize="14"
+                HorizontalOptions="Center"
+                IsVisible="{Binding FechaTarea.HasValue}"
+                Text="{Binding FechaTarea, StringFormat='📌Fecha asignada: {0:dddd, dd MMMM yyyy}'}"
+                TextColor="Gray" />
+
+
 
             <Label
                 FontSize="16"

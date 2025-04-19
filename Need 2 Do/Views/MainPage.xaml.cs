@@ -1,5 +1,10 @@
 ﻿using Need_2_Do;
 using Need_2_Do.Models;
+using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core; // Opcional si quieres personalizar
+using CommunityToolkit.Maui.Views;
+using Need_2_Do.Views.Popups;
 namespace NotasApp.Views
 {
     public partial class MainPage : ContentPage
@@ -63,7 +68,8 @@ namespace NotasApp.Views
                 await Shell.Current.GoToAsync($"EditarNotaPage?notaId={nota.Id}");
             }
         }
-        private async void OnBorrarNotaDesdeLista(object sender, EventArgs e)
+
+        private async void OnBorrarNotadeLista(object sender, EventArgs e)
         {
             if (sender is Button boton && boton.CommandParameter is Nota nota)
             {
@@ -73,9 +79,13 @@ namespace NotasApp.Views
                 {
                     await App.Database.BorrarNotaAsync(nota);
                     CargarNotas(); // Recargar después de borrar
+
+                    // 🎉 Mostrar Snackbar
+                    //await Snackbar.Make("Nota eliminada", duration: TimeSpan.FromSeconds(2)).Show();
                 }
             }
         }
+
 
     }
 }
