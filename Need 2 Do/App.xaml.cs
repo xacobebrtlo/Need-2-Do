@@ -32,6 +32,7 @@ namespace Need_2_Do
         public App()
         {
             InitializeComponent();
+            //Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("TU_CLAVE_DE_LICENCIA");
 
             MainPage = new AppShell();
         }
