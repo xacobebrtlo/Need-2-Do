@@ -23,3 +23,4 @@
 ### 19/04/2025
 
 - Añadidas librerias: CommunityToolkit.Maui, Lottie y Syncfusion
+- Añadida opcion de seleccionar una fecha al añadir una nota
