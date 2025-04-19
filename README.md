@@ -25,3 +25,6 @@
 - Añadidas librerias: CommunityToolkit.Maui, Lottie y Syncfusion
 - Añadida opcion de seleccionar una fecha al añadir una nota
 - Problemas encontrados con los PopUps, aparece el PopUp en blanco, por lo que he decidido por ahora usar la clase que tenía de borrado de tareas
+- Rediseño pagina principal
+- Ahora eliminar y editar aparecen al deslizar el dedo hacia la izquierda sobre una tarea
+- Añadida función deshacer tras eliminar una tarea
