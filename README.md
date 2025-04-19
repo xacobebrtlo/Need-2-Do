@@ -19,3 +19,7 @@
 &nbsp;
 --- 
 &nbsp;
+
+### 19/04/2025
+
+- Añadidas librerias: CommunityToolkit.Maui, Lottie y Syncfusion
