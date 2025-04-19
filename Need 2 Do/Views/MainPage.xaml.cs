@@ -69,7 +69,7 @@ namespace NotasApp.Views
             }
         }
 
-        private async void OnBorrarNotaDesdeLista(object sender, EventArgs e)
+        private async void OnBorrarNotadeLista(object sender, EventArgs e)
         {
             if (sender is Button boton && boton.CommandParameter is Nota nota)
             {

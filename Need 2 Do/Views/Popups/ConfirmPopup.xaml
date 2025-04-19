@@ -7,27 +7,28 @@
     CanBeDismissedByTappingOutsideOfPopup="True"
     Size="300,200">
 
-    <VerticalStackLayout
+    <Frame
         Padding="20"
         BackgroundColor="White"
         CornerRadius="20"
+        HasShadow="True"
         HorizontalOptions="Center"
-        Shadow="10"
-        Spacing="16"
         VerticalOptions="Center">
 
-        <Label
-            FontAttributes="Bold"
-            FontSize="18"
-            HorizontalOptions="Center"
-            Text="¿Quieres eliminar esta nota?" />
+        <VerticalStackLayout Spacing="16">
+            <Label
+                FontAttributes="Bold"
+                FontSize="18"
+                HorizontalOptions="Center"
+                Text="¿Quieres eliminar esta nota?" />
 
-        <Button
-            BackgroundColor="Red"
-            Clicked="OnDeleteClicked"
-            Text="Sí, eliminar"
-            TextColor="White" />
+            <Button
+                BackgroundColor="Red"
+                Clicked="OnDeleteClicked"
+                Text="Sí, eliminar"
+                TextColor="White" />
 
-        <Button Clicked="OnCancelClicked" Text="Cancelar" />
-    </VerticalStackLayout>
+            <Button Clicked="OnCancelClicked" Text="Cancelar" />
+        </VerticalStackLayout>
+    </Frame>
 </toolkit:Popup>

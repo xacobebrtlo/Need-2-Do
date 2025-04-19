@@ -4,17 +4,19 @@ namespace Need_2_Do.Views.Popups
 {
     public partial class ConfirmPopup : Popup
     {
-        private readonly Action onConfirm;
+        private readonly Func<Task> onConfirm;
 
-        public ConfirmPopup(Action onConfirmAction)
+        public ConfirmPopup(Func<Task> onConfirmAction)
         {
             InitializeComponent();
             onConfirm = onConfirmAction;
         }
 
-        private void OnDeleteClicked(object sender, EventArgs e)
+        private async void OnDeleteClicked(object sender, EventArgs e)
         {
-            onConfirm?.Invoke();
+            if (onConfirm != null)
+                await onConfirm();
+
             Close();
         }
 
