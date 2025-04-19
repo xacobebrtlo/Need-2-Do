@@ -1,28 +1,36 @@
 using CommunityToolkit.Maui.Views;
 
-namespace Need_2_Do.Views.Popups
-{
-    public partial class ConfirmPopup : Popup
-    {
-        private readonly Func<Task> onConfirm;
+namespace Need_2_Do.Views.Popups;
 
-        public ConfirmPopup(Func<Task> onConfirmAction)
+public partial class ConfirmPopup : Popup
+{
+    private readonly TaskCompletionSource<bool> _tcs = new();
+
+    public ConfirmPopup(string message)
+    {
+        try
         {
             InitializeComponent();
-            onConfirm = onConfirmAction;
+            MessageLabel.Text = message;
         }
-
-        private async void OnDeleteClicked(object sender, EventArgs e)
+        catch (Exception ex)
         {
-            if (onConfirm != null)
-                await onConfirm();
-
-            Close();
+            Console.WriteLine($"[POPUP ERROR] {ex.Message}");
         }
+    }
 
-        private void OnCancelClicked(object sender, EventArgs e)
-        {
-            Close();
-        }
+
+    public Task<bool> ShowConfirmationAsync() => _tcs.Task;
+
+    private void OnCancelClicked(object sender, EventArgs e)
+    {
+        _tcs.TrySetResult(false);
+        Close();
+    }
+
+    private void OnConfirmClicked(object sender, EventArgs e)
+    {
+        _tcs.TrySetResult(true);
+        Close();
     }
 }

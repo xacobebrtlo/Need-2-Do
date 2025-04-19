@@ -54,13 +54,6 @@ public partial class EditarNotaPage : ContentPage
         if (notaActual == null)
             return;
 
-        bool confirmar = await DisplayAlert("Eliminar", "¿Deseas eliminar esta nota?", "Sí", "Cancelar");
-
-        if (confirmar)
-        {
-            await App.Database.BorrarNotaAsync(notaActual);
-            await Shell.Current.GoToAsync($"BorrarNotaPage?notaId={notaActual.Id}");
-
-        }
+        await Shell.Current.GoToAsync($"BorrarNotaPage?notaId={notaActual.Id}");
     }
 }

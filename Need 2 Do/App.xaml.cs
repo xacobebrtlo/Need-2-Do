@@ -6,8 +6,10 @@ namespace Need_2_Do
     public partial class App : Application
     {
         static NotasDatabase database;
+
         public static NotasDatabase Database
         {
+
             get
             {
                 if (database == null)

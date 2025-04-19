@@ -3,32 +3,36 @@
     x:Class="Need_2_Do.Views.Popups.ConfirmPopup"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-    CanBeDismissedByTappingOutsideOfPopup="True"
-    Size="300,200">
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
 
     <Frame
         Padding="20"
         BackgroundColor="White"
-        CornerRadius="20"
+        CornerRadius="16"
         HasShadow="True"
         HorizontalOptions="Center"
         VerticalOptions="Center">
 
-        <VerticalStackLayout Spacing="16">
+        <VerticalStackLayout Spacing="20">
             <Label
+                x:Name="MessageLabel"
+                Text="¿Estás seguro de que deseas eliminar esta nota?" 
                 FontAttributes="Bold"
-                FontSize="18"
-                HorizontalOptions="Center"
-                Text="¿Quieres eliminar esta nota?" />
+                FontSize="Medium"
+                HorizontalOptions="Center"/>
 
-            <Button
-                BackgroundColor="Red"
-                Clicked="OnDeleteClicked"
-                Text="Sí, eliminar"
-                TextColor="White" />
-
-            <Button Clicked="OnCancelClicked" Text="Cancelar" />
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
+                <Button
+                    BackgroundColor="LightGray"
+                    Clicked="OnCancelClicked"
+                    Text="Cancelar" />
+                <Button
+                    BackgroundColor="Tomato"
+                    Clicked="OnConfirmClicked"
+                    Text="Eliminar"
+                    TextColor="White" />
+            </HorizontalStackLayout>
         </VerticalStackLayout>
+
     </Frame>
 </toolkit:Popup>

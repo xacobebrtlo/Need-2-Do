@@ -1,72 +1,89 @@
-﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="NotasApp.Views.MainPage"
-             Title="Tus Notas"
-             BackgroundColor="#F4F4F4">
+﻿<ContentPage
+    x:Class="NotasApp.Views.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:model="clr-namespace:Need_2_Do.Models"
+    Title="Tus Notas"
+    BackgroundColor="#F4F4F4">
 
     <Grid Padding="10">
-        <!-- Lista de notas -->
-        <CollectionView x:Name="NotasCollection"
-                        SelectionChanged="OnNotaSeleccionada"
-                        Margin="0,0,0,70">
+        <!--  Lista de notas  -->
+        <CollectionView ItemsSource="{Binding Notas}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Frame Margin="0,10"
-                           Padding="12"
-                           CornerRadius="16"
-                           BackgroundColor="White"
-                           HasShadow="True">
-                        <VerticalStackLayout Spacing="5">
-                            <Label Text="{Binding Titulo}"
-                                   FontSize="18"
-                                   FontAttributes="Bold"
-                                   TextColor="#333" />
-                            <Label Text="{Binding Contenido}"
-                                   FontSize="14"
-                                   TextColor="#666"
-                                   LineBreakMode="TailTruncation"
-                                   MaxLines="3" />
-                            <Label 
-                                Text="{Binding FechaTarea, StringFormat='Fecha asignada: {0:dd MMM yyyy}'}" 
-                                IsVisible="{Binding FechaTarea.HasValue}" />
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItems Mode="Reveal">
+                                <SwipeItem
+                                    AutomationId="Editar"
+                                    BackgroundColor="#4DA6FF"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.IrAEditarNotaCommand}"
+                                    CommandParameter="{Binding .}"
+                                    Text="Editar" />
 
-                            <HorizontalStackLayout Spacing="15" Margin="0,10,0,0">
-                                <Button Text="Editar"
-                                        FontSize="12"
-                                        BackgroundColor="#007AFF"
-                                        TextColor="White"
-                                        Padding="5"
-                                        Clicked="OnEditarNotaDesdeLista"
-                                        CommandParameter="{Binding .}" />
-                                <Button Text="Borrar"
-                                        FontSize="12"
-                                        BackgroundColor="#FF3B30"
-                                        TextColor="White"
-                                        Padding="5"
-                                        Clicked="OnBorrarNotadeLista"
-                                        CommandParameter="{Binding .}" />
-                            </HorizontalStackLayout>
-                        </VerticalStackLayout>
-                    </Frame>
+                                <SwipeItem
+                                    AutomationId="Eliminar"
+                                    BackgroundColor="#FF3B30"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.BorrarNotaCommand}"
+                                    CommandParameter="{Binding .}"
+                                    Text="Eliminar" />
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+
+                        <Frame
+                            Margin="0,4"
+                            Padding="16"
+                            BackgroundColor="{DynamicResource CardBackgroundColor}"
+                            CornerRadius="20"
+                            HasShadow="True">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer CommandParameter="{Binding .}" Tapped="OnCardTapped" />
+                            </Frame.GestureRecognizers>
+
+                            <VerticalStackLayout Spacing="6">
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontSize="18"
+                                    Text="{Binding Titulo}"
+                                    TextColor="{DynamicResource TextPrimary}" />
+                                <Label
+                                    FontSize="14"
+                                    LineBreakMode="TailTruncation"
+                                    MaxLines="3"
+                                    Text="{Binding Contenido}"
+                                    TextColor="{DynamicResource TextSecondary}" />
+                                <Label
+                                    FontSize="12"
+                                    HorizontalOptions="End"
+                                    Text="{Binding FechaTarea, StringFormat='📅 {0:dd MMM yyyy}'}"
+                                    TextColor="{DynamicResource DateText}" />
+                            </VerticalStackLayout>
+                        </Frame>
+                    </SwipeView>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <!-- Botón flotante -->
-        <Grid VerticalOptions="End" HorizontalOptions="End" Padding="15">
-            <Frame BackgroundColor="#007AFF"
-                   CornerRadius="100"
-                   HeightRequest="60"
-                   WidthRequest="60"
-                   HasShadow="True"
-                   Padding="0">
-                <ImageButton Source="plus.png"
-                             Clicked="OnNuevaNotaClicked"
-                             BackgroundColor="Transparent"
-                             WidthRequest="60"
-                             HeightRequest="60"
-                             HorizontalOptions="Center"
-                             VerticalOptions="Center"/>
+        <!--  Botón flotante  -->
+        <Grid
+            Padding="15"
+            HorizontalOptions="End"
+            VerticalOptions="End">
+            <Frame
+                Padding="0"
+                BackgroundColor="#007AFF"
+                CornerRadius="100"
+                HasShadow="True"
+                HeightRequest="60"
+                WidthRequest="60">
+                <ImageButton
+                    BackgroundColor="Transparent"
+                    Clicked="OnNuevaNotaClicked"
+                    HeightRequest="60"
+                    HorizontalOptions="Center"
+                    Source="plus.png"
+                    VerticalOptions="Center"
+                    WidthRequest="60" />
             </Frame>
         </Grid>
     </Grid>

@@ -5,6 +5,7 @@ using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core; // Opcional si quieres personalizar
 using CommunityToolkit.Maui.Views;
 using Need_2_Do.Views.Popups;
+using Need_2_Do.ViewModels;
 namespace NotasApp.Views
 {
     public partial class MainPage : ContentPage
@@ -12,46 +13,42 @@ namespace NotasApp.Views
         public MainPage()
         {
             InitializeComponent();
-            CargarNotas();
+            BindingContext = new MainViewModel();
+            //CargarNotas();
 
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            CargarNotas();
+
+            if (BindingContext is MainViewModel vm)
+                vm.CargarNotasCommand.Execute(null);
         }
 
-        private async void CargarNotas()
+        public async void AnimarYEditar(Frame card, Nota nota)
         {
-            var notas = await App.Database.ObtenerNotasAsync();
+            if (card == null || nota == null) return;
 
-            // Solo insertar si no hay ninguna nota
-            //if (notas.Count == 0)
-            //{
-            //    var notaDemo = new Nota
-            //    {
-            //        Titulo = "Ejemplo de nota",
-            //        Contenido = "Esta es una nota de prueba para ver el diseño.",
-            //        FechaCreacion = DateTime.Now
-            //    };
+            await card.ScaleTo(0.96, 80);
+            await card.ScaleTo(1.0, 80);
 
-            //    await App.Database.GuardarNotaAsync(notaDemo);
-
-            //    // Recargar lista
-            //    notas = await App.Database.ObtenerNotasAsync();
-            //}
-
-            NotasCollection.ItemsSource = notas;
+            await Shell.Current.GoToAsync($"EditarNotaPage?notaId={nota.Id}");
         }
-
+        private void OnCardTapped(object sender, EventArgs e)
+        {
+            if (sender is Frame frame && frame.BindingContext is Nota nota)
+            {
+                AnimarYEditar(frame, nota);
+            }
+        }
 
         private async void OnNotaSeleccionada(object sender, SelectionChangedEventArgs e)
         {
             if (e.CurrentSelection.FirstOrDefault() is Nota nota)
             {
                 await Shell.Current.GoToAsync($"EditarNotaPage?notaId={nota.Id}");
-                NotasCollection.SelectedItem = null; // deseleccionar
+                //NotasCollection.SelectedItem = null; // deseleccionar
             }
         }
 
@@ -78,10 +75,8 @@ namespace NotasApp.Views
                 if (confirmar)
                 {
                     await App.Database.BorrarNotaAsync(nota);
-                    CargarNotas(); // Recargar después de borrar
+                    //CargarNotas(); // Recargar después de borrar
 
-                    // 🎉 Mostrar Snackbar
-                    //await Snackbar.Make("Nota eliminada", duration: TimeSpan.FromSeconds(2)).Show();
                 }
             }
         }
