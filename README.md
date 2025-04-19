@@ -24,3 +24,4 @@
 
 - Añadidas librerias: CommunityToolkit.Maui, Lottie y Syncfusion
 - Añadida opcion de seleccionar una fecha al añadir una nota
+- Problemas encontrados con los PopUps, aparece el PopUp en blanco, por lo que he decidido por ahora usar la clase que tenía de borrado de tareas
