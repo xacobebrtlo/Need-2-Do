@@ -6,9 +6,53 @@
     Title="Tus Notas"
     BackgroundColor="#F4F4F4">
 
-    <Grid Padding="10">
+    <Grid Padding="10" RowDefinitions="Auto, *">
+
+        <!--  Botón de filtro  -->
+        <Border
+            Margin="0,0,0,10"
+            BackgroundColor="Transparent"
+            HorizontalOptions="Start"
+            StrokeThickness="0"
+            VerticalOptions="Center">
+
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnFiltroButtonClicked" />
+            </Border.GestureRecognizers>
+
+            <Grid
+                ColumnDefinitions="Auto, Auto"
+                ColumnSpacing="5"
+                VerticalOptions="Center">
+                <!--  Texto + flecha juntos  -->
+                <Label
+                    x:Name="FiltroLabel"
+                    FontAttributes="Bold"
+                    FontSize="16"
+                    Text="Todas ▶"
+                    TextColor="Black"
+                    VerticalOptions="Center" />
+            </Grid>
+
+        </Border>
+
+
+        <!--  Imagen de estado vacío  -->
+        <Image
+            x:Name="EmptyImage"
+            Grid.Row="1"
+            HeightRequest="250"
+            HorizontalOptions="Center"
+            IsVisible="False"
+            Source="empty_state.png"
+            VerticalOptions="Center"
+            WidthRequest="250" />
+
         <!--  Lista de notas  -->
-        <CollectionView ItemsSource="{Binding Notas}">
+        <CollectionView
+            x:Name="NotasCollection"
+            Grid.Row="1"
+            ItemsSource="{Binding Notas}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <SwipeView>
@@ -66,6 +110,7 @@
 
         <!--  Botón flotante  -->
         <Grid
+            Grid.Row="1"
             Padding="15"
             HorizontalOptions="End"
             VerticalOptions="End">
@@ -86,5 +131,6 @@
                     WidthRequest="60" />
             </Frame>
         </Grid>
+
     </Grid>
 </ContentPage>
