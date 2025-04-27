@@ -28,3 +28,11 @@
 - Rediseño pagina principal
 - Ahora eliminar y editar aparecen al deslizar el dedo hacia la izquierda sobre una tarea
 - Añadida función deshacer tras eliminar una tarea
+  
+&nbsp;
+--- 
+&nbsp;
+
+### 27/04/2025
+- Añadido boton que permite filtrar por Todas, Esta semana y Este mes
+- Intenté añadir animacion con lottie para cuando no haya tareas pero daba muchos problemas, al final añadi una imagen
