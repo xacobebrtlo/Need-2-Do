@@ -36,3 +36,11 @@
 ### 27/04/2025
 - Añadido boton que permite filtrar por Todas, Esta semana y Este mes
 - Intenté añadir animacion con lottie para cuando no haya tareas pero daba muchos problemas, al final añadi una imagen
+
+&nbsp;
+--- 
+&nbsp;
+
+### 11/05/2025
+- Añadido nuevo tema de la app
+- Añadido filtro desplegable para navegar entre ventanas
