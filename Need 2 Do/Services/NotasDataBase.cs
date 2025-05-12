@@ -33,5 +33,12 @@ namespace Need_2_Do.Services
         //Borra Nota
         public Task<int> BorrarNotaAsync(Nota nota) =>
             _database.DeleteAsync(nota);
+
+        public Task<Nota> ObtenerNotaPorIdAsync(int id)
+        {
+            return _database.Table<Nota>()
+                           .Where(n => n.Id == id)
+                           .FirstOrDefaultAsync();
+        }
     }
 }

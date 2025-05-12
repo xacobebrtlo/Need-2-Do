@@ -1,49 +1,38 @@
 using Need_2_Do.Models;
-using Need_2_Do.ViewModels;
-using Syncfusion.Maui.Core.Carousel;
+using Need_2_Do.Views.Base;
 
-namespace Need_2_Do.Views;
-
-public partial class AñadirNotaPage : ContentPage
+namespace Need_2_Do.Views
 {
-
-    public AñadirNotaPage()
+    public partial class AñadirNotaPage : BasePage
     {
-        InitializeComponent();
-        BindingContext = new AddNoteViewModel();
-    }
-    private void OnAsignarFechaClicked(object sender, EventArgs e)
-    {
-        if (BindingContext is AddNoteViewModel viewModel)
+        public AñadirNotaPage()
         {
-            viewModel.MostrarCalendario = !viewModel.MostrarCalendario;
-
-            if (viewModel.MostrarCalendario && viewModel.FechaTarea == null)
-            {
-                viewModel.FechaTarea = DateTime.Today;
-            }
-
-            if (!viewModel.MostrarCalendario)
-            {
-                viewModel.FechaTarea = null;
-            }
+            InitializeComponent();
         }
-    }
 
-
-
-    private async void OnGuardarClicked(object sender, EventArgs e)
-    {
-        if (BindingContext is AddNoteViewModel viewModel)
+        private void OnSeleccionarFechaClicked(object sender, EventArgs e)
         {
-            Nota nota = new Nota
+            FechaPicker.IsVisible = !FechaPicker.IsVisible;
+        }
+
+        private async void OnGuardarClicked(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(TituloEntry.Text))
             {
-                Titulo = tituloEntry.Text,
-                Contenido = contenidoEditor.Text,
+                await DisplayAlert("Error", "Por favor ingresa un título.", "OK");
+                return;
+            }
+
+            var nota = new Nota
+            {
+                Titulo = TituloEntry.Text,
+                Contenido = ContenidoEditor.Text,
                 FechaCreacion = DateTime.Now,
-                FechaTarea = viewModel.MostrarCalendario ? viewModel.FechaTarea : null
+                FechaTarea = FechaPicker.IsVisible ? FechaPicker.Date : null
             };
+
             await App.Database.GuardarNotaAsync(nota);
+            await DisplayAlert("Guardado", "Nota guardada correctamente.", "OK");
             await Shell.Current.GoToAsync("..");
         }
     }

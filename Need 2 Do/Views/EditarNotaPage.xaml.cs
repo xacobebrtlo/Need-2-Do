@@ -1,59 +1,60 @@
 using Need_2_Do.Models;
+using Need_2_Do.Views.Base;
 
-namespace Need_2_Do.Views;
-
-[QueryProperty(nameof(NotaId), "notaId")]
-public partial class EditarNotaPage : ContentPage
+namespace Need_2_Do.Views
 {
-    private Nota notaActual;
-
-    public EditarNotaPage()
+    public partial class EditarNotaPage : BasePage, IQueryAttributable
     {
-        InitializeComponent();
-    }
+        private Nota currentNota;
 
-    private string notaId;
-    public string NotaId
-    {
-        get => notaId;
-        set
+        public EditarNotaPage()
         {
-            notaId = value;
-            CargarNota(); // cargamos la nota cuando el parámetro llega
+            InitializeComponent();
         }
-    }
 
-    private async void CargarNota()
-    {
-        if (int.TryParse(NotaId, out int id))
+        public async void ApplyQueryAttributes(IDictionary<string, object> query)
         {
-            notaActual = await App.Database.ObtenerNotaAsync(id);
-
-            if (notaActual != null)
+            if (query.ContainsKey("notaId"))
             {
-                tituloEntry.Text = notaActual.Titulo;
-                contenidoEditor.Text = notaActual.Contenido;
+                int notaId = Convert.ToInt32(query["notaId"]);
+                currentNota = await App.Database.ObtenerNotaPorIdAsync(notaId);
+
+                if (currentNota != null)
+                {
+                    TituloEntry.Text = currentNota.Titulo;
+                    ContenidoEditor.Text = currentNota.Contenido;
+                    FechaPicker.Date = currentNota.FechaTarea ?? DateTime.Now;
+                }
             }
         }
-    }
 
-    private async void OnGuardarClicked(object sender, EventArgs e)
-    {
-        if (notaActual == null)
-            return;
+        private async void OnGuardarClicked(object sender, EventArgs e)
+        {
+            if (currentNota == null)
+                return;
 
-        notaActual.Titulo = tituloEntry.Text;
-        notaActual.Contenido = contenidoEditor.Text;
+            currentNota.Titulo = TituloEntry.Text;
+            currentNota.Contenido = ContenidoEditor.Text;
+            currentNota.FechaTarea = FechaPicker.Date;
 
-        await App.Database.GuardarNotaAsync(notaActual);
-        await Shell.Current.GoToAsync("..");
-    }
+            await App.Database.GuardarNotaAsync(currentNota);
+            await DisplayAlert("Actualizado", "Nota actualizada correctamente.", "OK");
+            await Shell.Current.GoToAsync("..");
+        }
 
-    private async void OnEliminarClicked(object sender, EventArgs e)
-    {
-        if (notaActual == null)
-            return;
+        private async void OnBorrarClicked(object sender, EventArgs e)
+        {
+            if (currentNota == null)
+                return;
 
-        await Shell.Current.GoToAsync($"BorrarNotaPage?notaId={notaActual.Id}");
+            bool confirmar = await DisplayAlert("Eliminar", "¿Deseas eliminar esta nota?", "Sí", "Cancelar");
+
+            if (confirmar)
+            {
+                await App.Database.BorrarNotaAsync(currentNota);
+                await DisplayAlert("Eliminada", "Nota eliminada correctamente.", "OK");
+                await Shell.Current.GoToAsync("..");
+            }
+        }
     }
 }

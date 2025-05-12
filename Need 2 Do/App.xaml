@@ -1,19 +1,26 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
-<Application
+﻿<Application
     x:Class="Need_2_Do.App"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:Need_2_Do">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
     <Application.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
-                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-            <Color x:Key="CardBackgroundColor">#FFFFFF</Color>
-            <Color x:Key="TextPrimary">#000000</Color>
-            <Color x:Key="TextSecondary">#444444</Color>
-            <Color x:Key="DateText">#888888</Color>
+
+            <!--  Colores base  -->
+            <Color x:Key="PrimaryColor">#4DA6FF</Color>
+            <Color x:Key="BackgroundLight">#FFFFFF</Color>
+            <Color x:Key="BackgroundDark">#121212</Color>
+            <Color x:Key="CardLight">#FFFFFF</Color>
+            <Color x:Key="CardDark">#1E1E1E</Color>
+            <Color x:Key="TextPrimaryLight">#000000</Color>
+            <Color x:Key="TextPrimaryDark">#FFFFFF</Color>
+            <Color x:Key="TextSecondaryLight">#777777</Color>
+            <Color x:Key="TextSecondaryDark">#CCCCCC</Color>
+            <Color x:Key="DateTextLight">#AAAAAA</Color>
+            <Color x:Key="DateTextDark">#888888</Color>
+            <Color x:Key="SwipeEditColor">#4DA6FF</Color>
+            <Color x:Key="SwipeDeleteColor">#FF3B30</Color>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

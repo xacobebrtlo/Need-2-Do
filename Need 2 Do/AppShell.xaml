@@ -1,16 +1,17 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<Shell
+<Shell 
     x:Class="Need_2_Do.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:Need_2_Do"
-    xmlns:views="clr-namespace:NotasApp.Views"
-    Shell.FlyoutBehavior="Disabled"
-    Title="Need_2_Do">
+    xmlns:views="clr-namespace:Need_2_Do.Views">
 
+    <!-- Página principal -->
     <ShellContent
-        Title="Home"
+        Title="Notas"
         ContentTemplate="{DataTemplate views:MainPage}"
         Route="MainPage" />
+
+    <!-- Rutas definidas -->
+    <ShellContent ContentTemplate="{DataTemplate views:AñadirNotaPage}" Route="AñadirNotaPage" />
+    <ShellContent ContentTemplate="{DataTemplate views:EditarNotaPage}" Route="EditarNotaPage" />
 
 </Shell>

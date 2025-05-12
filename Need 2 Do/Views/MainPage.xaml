@@ -1,10 +1,11 @@
-﻿<ContentPage
-    x:Class="NotasApp.Views.MainPage"
+﻿<views:BasePage
+    x:Class="Need_2_Do.Views.MainPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Need_2_Do.Behaviors"
     xmlns:model="clr-namespace:Need_2_Do.Models"
-    Title="Tus Notas"
-    BackgroundColor="#F4F4F4">
+    xmlns:views="clr-namespace:Need_2_Do.Views.Base"
+    Title="Tus Notas">
 
     <Grid Padding="10" RowDefinitions="Auto, *">
 
@@ -24,18 +25,23 @@
                 ColumnDefinitions="Auto, Auto"
                 ColumnSpacing="5"
                 VerticalOptions="Center">
-                <!--  Texto + flecha juntos  -->
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="20"
+                    Text="≡"
+                    TextColor="{AppThemeBinding Light={StaticResource TextPrimaryLight},
+                                                Dark={StaticResource TextPrimaryDark}}"
+                    VerticalOptions="Center" />
                 <Label
                     x:Name="FiltroLabel"
                     FontAttributes="Bold"
                     FontSize="16"
                     Text="Todas ▶"
-                    TextColor="Black"
+                    TextColor="{AppThemeBinding Light={StaticResource TextPrimaryLight},
+                                                Dark={StaticResource TextPrimaryDark}}"
                     VerticalOptions="Center" />
             </Grid>
-
         </Border>
-
 
         <!--  Imagen de estado vacío  -->
         <Image
@@ -59,17 +65,15 @@
                         <SwipeView.RightItems>
                             <SwipeItems Mode="Reveal">
                                 <SwipeItem
-                                    AutomationId="Editar"
-                                    BackgroundColor="#4DA6FF"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.IrAEditarNotaCommand}"
+                                    BackgroundColor="{StaticResource SwipeEditColor}"
                                     CommandParameter="{Binding .}"
+                                    Invoked="OnEditarNotaDesdeLista"
                                     Text="Editar" />
 
                                 <SwipeItem
-                                    AutomationId="Eliminar"
-                                    BackgroundColor="#FF3B30"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.BorrarNotaCommand}"
+                                    BackgroundColor="{StaticResource SwipeDeleteColor}"
                                     CommandParameter="{Binding .}"
+                                    Invoked="OnBorrarNotadeLista"
                                     Text="Eliminar" />
                             </SwipeItems>
                         </SwipeView.RightItems>
@@ -77,30 +81,36 @@
                         <Frame
                             Margin="0,4"
                             Padding="16"
-                            BackgroundColor="{DynamicResource CardBackgroundColor}"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource CardLight},
+                                                              Dark={StaticResource CardDark}}"
                             CornerRadius="20"
                             HasShadow="True">
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer CommandParameter="{Binding .}" Tapped="OnCardTapped" />
                             </Frame.GestureRecognizers>
-
+                            <Frame.Behaviors>
+                                <local:AnimateOnFirstLoadBehavior />
+                            </Frame.Behaviors>
                             <VerticalStackLayout Spacing="6">
                                 <Label
                                     FontAttributes="Bold"
                                     FontSize="18"
                                     Text="{Binding Titulo}"
-                                    TextColor="{DynamicResource TextPrimary}" />
+                                    TextColor="{AppThemeBinding Light={StaticResource TextPrimaryLight},
+                                                                Dark={StaticResource TextPrimaryDark}}" />
                                 <Label
                                     FontSize="14"
                                     LineBreakMode="TailTruncation"
                                     MaxLines="3"
                                     Text="{Binding Contenido}"
-                                    TextColor="{DynamicResource TextSecondary}" />
+                                    TextColor="{AppThemeBinding Light={StaticResource TextSecondaryLight},
+                                                                Dark={StaticResource TextSecondaryDark}}" />
                                 <Label
                                     FontSize="12"
                                     HorizontalOptions="End"
                                     Text="{Binding FechaTarea, StringFormat='📅 {0:dd MMM yyyy}'}"
-                                    TextColor="{DynamicResource DateText}" />
+                                    TextColor="{AppThemeBinding Light={StaticResource DateTextLight},
+                                                                Dark={StaticResource DateTextDark}}" />
                             </VerticalStackLayout>
                         </Frame>
                     </SwipeView>
@@ -116,7 +126,7 @@
             VerticalOptions="End">
             <Frame
                 Padding="0"
-                BackgroundColor="#007AFF"
+                BackgroundColor="{StaticResource PrimaryColor}"
                 CornerRadius="100"
                 HasShadow="True"
                 HeightRequest="60"
@@ -133,4 +143,4 @@
         </Grid>
 
     </Grid>
-</ContentPage>
+</views:BasePage>
