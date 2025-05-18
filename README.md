@@ -44,3 +44,12 @@
 ### 11/05/2025
 - Añadido nuevo tema de la app
 - Añadido filtro desplegable para navegar entre ventanas
+
+&nbsp;
+--- 
+&nbsp;
+
+### 18/05/2025
+- Corregido bug en filtrar por:Todas, esta semana, estes mes.
+- Añadida fncionalidad pra completar tareas y una ventana para ver lasd tareas completadas y poder deshacerlas
+- Añadida funcion para cambiar del tema claro a oscuro
