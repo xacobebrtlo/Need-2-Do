@@ -15,6 +15,8 @@ namespace Need_2_Do.Models
         public string Contenido { get; set; }
         public DateTime FechaCreacion { get; set; }
         public DateTime? FechaTarea { get; set; }
+        public bool EsCompletada { get; set; } = false;
+
 
     }
 }

@@ -20,5 +20,9 @@
     <FlyoutItem Title="Añadir Nota" FlyoutDisplayOptions="AsSingleItem">
         <ShellContent ContentTemplate="{DataTemplate views:AñadirNotaPage}" Route="AñadirNotaPage" />
     </FlyoutItem>
+    <FlyoutItem Title="Notas Completadas" FlyoutDisplayOptions="AsSingleItem">
+        <ShellContent ContentTemplate="{DataTemplate views:NotasCompletadasPage}" Route="NotasCompletadasPage" />
+    </FlyoutItem>
+
 
 </Shell>

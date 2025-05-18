@@ -9,6 +9,53 @@
 
     <Grid Padding="10" RowDefinitions="Auto, *">
 
+        <!--  Encabezado con switch de tema  -->
+        <Grid Margin="0,0,0,10" ColumnDefinitions="*,Auto">
+            <Label
+                FontAttributes="Bold"
+                FontSize="22"
+                Text="Tus Notas"
+                TextColor="{AppThemeBinding Light={StaticResource TextPrimaryLight},
+                                            Dark={StaticResource TextPrimaryDark}}"
+                VerticalOptions="Center" />
+
+            <!--  Switch de tema  -->
+            <Grid
+                x:Name="ThemeSwitch"
+                Margin="0,0,5,0"
+                HeightRequest="30"
+                HorizontalOptions="End"
+                VerticalOptions="Center"
+                WidthRequest="60">
+
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnThemeToggleTapped" />
+                </Grid.GestureRecognizers>
+
+                <!--  Imagen más grande  -->
+                <Image
+                    Margin="-6,0"
+                    Aspect="AspectFill"
+                    HeightRequest="40"
+                    HorizontalOptions="Center"
+                    Source="switch_theme.png"
+                    VerticalOptions="Center"
+                    WidthRequest="80" />
+
+                <!--  Botón blanco pequeño  -->
+                <Frame
+                    x:Name="SwitchKnob"
+                    BackgroundColor="White"
+                    CornerRadius="15"
+                    HasShadow="False"
+                    HeightRequest="26"
+                    HorizontalOptions="Start"
+                    TranslationX="2"
+                    VerticalOptions="Center"
+                    WidthRequest="26" />
+            </Grid>
+
+        </Grid>
 
         <!--  Imagen de estado vacío  -->
         <Image
@@ -33,17 +80,27 @@
                             <SwipeItems Mode="Reveal">
                                 <SwipeItem
                                     BackgroundColor="{StaticResource SwipeEditColor}"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.IrAEditarNotaCommand}"
                                     CommandParameter="{Binding .}"
-                                    Invoked="OnEditarNotaDesdeLista"
                                     Text="Editar" />
 
                                 <SwipeItem
                                     BackgroundColor="{StaticResource SwipeDeleteColor}"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.BorrarNotaCommand}"
                                     CommandParameter="{Binding .}"
-                                    Invoked="OnBorrarNotadeLista"
                                     Text="Eliminar" />
                             </SwipeItems>
                         </SwipeView.RightItems>
+
+                        <SwipeView.LeftItems>
+                            <SwipeItems Mode="Reveal">
+                                <SwipeItem
+                                    BackgroundColor="MediumSeaGreen"
+                                    CommandParameter="{Binding .}"
+                                    Invoked="OnMarcarCompletado"
+                                    Text="Completado" />
+                            </SwipeItems>
+                        </SwipeView.LeftItems>
 
                         <Frame
                             Margin="0,4"
@@ -58,6 +115,7 @@
                             <Frame.Behaviors>
                                 <local:AnimateOnFirstLoadBehavior />
                             </Frame.Behaviors>
+
                             <VerticalStackLayout Spacing="6">
                                 <Label
                                     FontAttributes="Bold"

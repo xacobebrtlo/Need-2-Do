@@ -26,9 +26,15 @@ namespace Need_2_Do.Services
         public Task<Nota> ObtenerNotaAsync(int id) =>
             _database.Table<Nota>().Where(i => i.Id == id).FirstOrDefaultAsync();
 
-        //Guarda Nota
-        public Task<int> GuardarNotaAsync(Nota nota) =>
-            nota.Id != 0 ? _database.UpdateAsync(nota) : _database.InsertAsync(nota);
+        public async Task<int> GuardarNotaAsync(Nota nota)
+        {
+            if (nota.Id != 0)
+                return await _database.UpdateAsync(nota);  // 👈 Esto actualiza
+            else
+                return await _database.InsertAsync(nota);  // 👈 Esto crea
+        }
+
+
 
         //Borra Nota
         public Task<int> BorrarNotaAsync(Nota nota) =>
