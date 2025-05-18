@@ -9,39 +9,6 @@
 
     <Grid Padding="10" RowDefinitions="Auto, *">
 
-        <!--  Botón de filtro  -->
-        <Border
-            Margin="0,0,0,10"
-            BackgroundColor="Transparent"
-            HorizontalOptions="Start"
-            StrokeThickness="0"
-            VerticalOptions="Center">
-
-            <Border.GestureRecognizers>
-                <TapGestureRecognizer Tapped="OnFiltroButtonClicked" />
-            </Border.GestureRecognizers>
-
-            <Grid
-                ColumnDefinitions="Auto, Auto"
-                ColumnSpacing="5"
-                VerticalOptions="Center">
-                <Label
-                    FontAttributes="Bold"
-                    FontSize="20"
-                    Text="≡"
-                    TextColor="{AppThemeBinding Light={StaticResource TextPrimaryLight},
-                                                Dark={StaticResource TextPrimaryDark}}"
-                    VerticalOptions="Center" />
-                <Label
-                    x:Name="FiltroLabel"
-                    FontAttributes="Bold"
-                    FontSize="16"
-                    Text="Todas ▶"
-                    TextColor="{AppThemeBinding Light={StaticResource TextPrimaryLight},
-                                                Dark={StaticResource TextPrimaryDark}}"
-                    VerticalOptions="Center" />
-            </Grid>
-        </Border>
 
         <!--  Imagen de estado vacío  -->
         <Image

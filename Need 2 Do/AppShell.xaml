@@ -1,17 +1,24 @@
-<Shell 
+<Shell
     x:Class="Need_2_Do.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:Need_2_Do.Views">
 
-    <!-- Página principal -->
-    <ShellContent
-        Title="Notas"
-        ContentTemplate="{DataTemplate views:MainPage}"
-        Route="MainPage" />
+    <!--  Página principal  -->
+    <FlyoutItem Title="Notas" FlyoutDisplayOptions="AsMultipleItems">
+        <ShellSection Title="Todas">
+            <ShellContent ContentTemplate="{DataTemplate views:MainPage}" Route="NotasTodas" />
+        </ShellSection>
+        <ShellSection Title="Este mes">
+            <ShellContent ContentTemplate="{DataTemplate views:MainPage}" Route="NotasMes" />
+        </ShellSection>
+        <ShellSection Title="Esta semana">
+            <ShellContent ContentTemplate="{DataTemplate views:MainPage}" Route="NotasSemana" />
+        </ShellSection>
+    </FlyoutItem>
 
-    <!-- Rutas definidas -->
-    <ShellContent ContentTemplate="{DataTemplate views:AñadirNotaPage}" Route="AñadirNotaPage" />
-    <ShellContent ContentTemplate="{DataTemplate views:EditarNotaPage}" Route="EditarNotaPage" />
+    <FlyoutItem Title="Añadir Nota" FlyoutDisplayOptions="AsSingleItem">
+        <ShellContent ContentTemplate="{DataTemplate views:AñadirNotaPage}" Route="AñadirNotaPage" />
+    </FlyoutItem>
 
 </Shell>

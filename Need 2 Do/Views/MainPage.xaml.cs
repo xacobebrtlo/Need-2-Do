@@ -72,44 +72,7 @@ namespace Need_2_Do.Views
         }
 
 
-        private async void OnFiltroButtonClicked(object sender, EventArgs e)
-        {
-            try
-            {
-                // Animación opcional (puedes dejarla si quieres que haya una ligera vibración)
-                await FiltroLabel.ScaleTo(1.1, 100);
-                await FiltroLabel.ScaleTo(1.0, 100);
 
-                string accion = await DisplayActionSheet("Filtrar notas", "Cancelar", null,
-                    "Todas", "Esta semana", "Este mes");
-
-                if (BindingContext is MainViewModel vm)
-                {
-                    switch (accion)
-                    {
-                        case "Todas":
-                            vm.FiltrarNotas("Todas");
-                            FiltroLabel.Text = "Todas ▼"; // Apunta hacia abajo
-                            break;
-                        case "Esta semana":
-                            vm.FiltrarNotas("Semana");
-                            FiltroLabel.Text = "Esta semana ▼"; // Apunta hacia abajo
-                            break;
-                        case "Este mes":
-                            vm.FiltrarNotas("Mes");
-                            FiltroLabel.Text = "Este mes ▼"; // Apunta hacia abajo
-                            break;
-                    }
-                }
-
-                ActualizarEstadoVacio();
-            }
-            finally
-            {
-                // Si quieres que al cerrar el menú vuelva a ▶ puedes hacerlo aquí
-                // Pero normalmente dejamos ▼ cuando ya está filtrado
-            }
-        }
 
         private async void OnBorrarNotadeLista(object sender, EventArgs e)
         {
@@ -126,7 +89,29 @@ namespace Need_2_Do.Views
                 }
             }
         }
+        public void ApplyQueryAttributes(IDictionary<string, object> query)
+        {
+            // Determinar la ruta activa desde Shell
+            var currentRoute = Shell.Current?.CurrentItem?.CurrentItem?.Route;
 
+            if (BindingContext is MainViewModel vm)
+            {
+                if (currentRoute == "NotasMes")
+                {
+                    vm.FiltrarNotas("Mes");
+                }
+                else if (currentRoute == "NotasSemana")
+                {
+                    vm.FiltrarNotas("Semana");
+                }
+                else
+                {
+                    vm.FiltrarNotas("Todas");
+                }
+            }
+
+            ActualizarEstadoVacio();
+        }
         private async void OnNuevaNotaClicked(object sender, EventArgs e)
         {
             await Shell.Current.GoToAsync("AñadirNotaPage");
