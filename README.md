@@ -53,3 +53,4 @@
 - Corregido bug en filtrar por:Todas, esta semana, estes mes.
 - Añadida fncionalidad pra completar tareas y una ventana para ver lasd tareas completadas y poder deshacerlas
 - Añadida funcion para cambiar del tema claro a oscuro
+- Falta por corregir bug de, cuando eliminas una nota, al deshacerla no la muestra ni la guarda nuevamente
