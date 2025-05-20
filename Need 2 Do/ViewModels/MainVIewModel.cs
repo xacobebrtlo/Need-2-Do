@@ -47,27 +47,32 @@ public partial class MainViewModel : ObservableObject
 
         if (!confirmar) return;
 
-        var notaBackup = nota;
+        // Clonar la nota antes de borrarla
+        var notaBackup = new Nota
+        {
+            Titulo = nota.Titulo,
+            Contenido = nota.Contenido,
+            FechaCreacion = nota.FechaCreacion,
+            FechaTarea = nota.FechaTarea
+        };
 
-
-        // Eliminar de la base de datos
+        // Borrar de la base de datos
         await _noteService.DeleteNoteAsync(nota);
-        await CargarNotas();
+        await CargarNotas(); // ✅ Refresca CollectionView
 
         // Mostrar Snackbar con opción de deshacer
         var snackbar = Snackbar.Make(
             "🗑 Nota eliminada",
             async () =>
             {
-                await _noteService.SaveNoteAsync(notaBackup);
-                await CargarNotas();
+                await App.Database.GuardarNotaAsync(notaBackup); // ✅ Recupera
+                await CargarNotas(); // ✅ Refresca CollectionView
             },
             "Deshacer",
             TimeSpan.FromSeconds(5));
-        
+
         await snackbar.Show();
     }
-
 
 
     [RelayCommand]

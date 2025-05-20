@@ -1,4 +1,5 @@
-﻿using Microsoft.Maui.Controls;
+﻿using CommunityToolkit.Maui.Alerts;
+using Microsoft.Maui.Controls;
 using Microsoft.Maui.Storage;
 using Need_2_Do.Models;
 using Need_2_Do.ViewModels;
@@ -19,7 +20,6 @@ namespace Need_2_Do.Views
             App.Current.UserAppTheme = temaOscuro ? AppTheme.Dark : AppTheme.Light;
 
             // Mover el botón al lugar correspondiente
-            SwitchKnob.TranslationX = temaOscuro ? -32 : 2;
             SwitchKnob.HasShadow = true;
             SwitchKnob.Shadow = new Shadow
             {
@@ -115,8 +115,31 @@ namespace Need_2_Do.Views
                     await App.Database.BorrarNotaAsync(nota);
                     await vm.CargarNotas();
                     ActualizarEstadoVacio();
+                    var notaBackup = new Nota
+                    {
+                        Id = nota.Id,
+                        Titulo = nota.Titulo,
+                        Contenido = nota.Contenido,
+                        FechaCreacion = nota.FechaCreacion,
+                        FechaTarea = nota.FechaTarea,
+                        EsCompletada = true
+                    };
+                    // Mostrar Snackbar con opción de deshacer
+                    var snackbar = Snackbar.Make(
+                        "🗑 Nota eliminada",
+                        async () =>
+                        {
+                            await App.Database.GuardarNotaAsync(notaBackup);
+                            await vm.CargarNotas();
+                        },
+                        "Deshacer",
+                        TimeSpan.FromSeconds(5));
+
+                    await snackbar.Show();
                 }
             }
+
+                
         }
 
         private async void OnMarcarCompletado(object sender, EventArgs e)
