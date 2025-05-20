@@ -54,3 +54,11 @@
 - Añadida fncionalidad pra completar tareas y una ventana para ver lasd tareas completadas y poder deshacerlas
 - Añadida funcion para cambiar del tema claro a oscuro
 - Falta por corregir bug de, cuando eliminas una nota, al deshacerla no la muestra ni la guarda nuevamente
+
+&nbsp;
+--- 
+&nbsp;
+
+### 20/05/2025
+- Añadida pantalla de carga y icono de la app
+- Corregido bug de deshacer tras eliminar nota
